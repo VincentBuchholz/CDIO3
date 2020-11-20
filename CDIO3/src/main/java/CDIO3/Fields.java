@@ -261,14 +261,6 @@ public class Fields{
         fields[22].setTitle("STRANDPROMENADEN");
         fields[22].setSubText("M5");
         fields[22].setBackGroundColor(Color.blue);
-
-
-
-
-
-
-
-
     }
 
 
