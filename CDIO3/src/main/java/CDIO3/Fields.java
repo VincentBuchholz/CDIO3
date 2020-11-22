@@ -188,6 +188,8 @@ public class Fields{
 
     };
 
+
+
     {
         fields[0].setTitle("Start");
         fields[0].setBackGroundColor(Color.white);
@@ -261,6 +263,10 @@ public class Fields{
         fields[22].setTitle("STRANDPROMENADEN");
         fields[22].setSubText("M5");
         fields[22].setBackGroundColor(Color.blue);
+    }
+
+    public void setFieldsSubText (int fieldNumber, String subText){
+        fields[fieldNumber].setSubText(subText);
     }
 
 

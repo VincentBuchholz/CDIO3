@@ -62,21 +62,38 @@ public class Main {
                     newFieldP1 = newFieldP1 - 24;
                 }
 
+                if (newFieldP1 == 18) {
+                    newFieldP1 = 6;
+                    controller.showMessage(player1.getName() + " go to jail!");
+                    accountPlayerOne.withdraw(1);
+                }
+
                 //moves player one
                 gui.getFields()[previousFieldP1].setCar(player1, false);
                 gui.getFields()[newFieldP1].setCar(player1, true);
+
+
 
                 if (field.getIsOwnable(newFieldP1) == true && field.getIsOwned(newFieldP1) == false) {
                     accountPlayerOne.withdraw(field.getPrice(newFieldP1));
                     player1.setBalance(accountPlayerOne.getBalance());
                     field.setIsOwned(newFieldP1, true);
                     field.setOwnedBy(newFieldP1, 1);
+                    field.setFieldsSubText(newFieldP1,"Ejer: " + "\n" + player1.getName());
                 }
                 if (field.getIsOwned(newFieldP1) == true && field.getOwnedBy(newFieldP1) == 2) {
-                    accountPlayerOne.withdraw(field.getPrice(newFieldP1));
-                    accountPlayerTwo.deposit(field.getPrice(newFieldP1));
-                    player1.setBalance(accountPlayerOne.getBalance());
-                    player2.setBalance(accountPlayerTwo.getBalance());
+                   //Hvis spiller to ejer hele det par man er landet på, betaler spiller et dobbelt.
+                    if (field.getOwnedBy(newFieldP1+1) == 2 || field.getOwnedBy(newFieldP1-1) == 2) {
+                       accountPlayerOne.withdraw(field.getPrice(newFieldP1)*2);
+                       accountPlayerTwo.deposit(field.getPrice(newFieldP1)*2);
+                       player1.setBalance(accountPlayerOne.getBalance());
+                       player2.setBalance(accountPlayerTwo.getBalance());
+                   } else {
+                        accountPlayerOne.withdraw(field.getPrice(newFieldP1));
+                        accountPlayerTwo.deposit(field.getPrice(newFieldP1));
+                        player1.setBalance(accountPlayerOne.getBalance());
+                        player2.setBalance(accountPlayerTwo.getBalance());
+                    }
                 }
                 if (accountPlayerOne.getBalance() <= 0) {
                     bankruptP1 = true;
@@ -99,6 +116,12 @@ public class Main {
                     accountPlayerTwo.deposit(2);
                 }
 
+                if (newFieldP2 == 18) {
+                    newFieldP2 = 6;
+                    controller.showMessage(player2.getName() + " go to jail!");
+                    accountPlayerOne.withdraw(1);
+                }
+
                 //moves player two
                 gui.getFields()[previousFieldP2].setCar(player2, false);
                 gui.getFields()[newFieldP2].setCar(player2, true);
@@ -108,12 +131,21 @@ public class Main {
                     player2.setBalance(accountPlayerTwo.getBalance());
                     field.setIsOwned(newFieldP2, true);
                     field.setOwnedBy(newFieldP2, 2);
+                    field.setFieldsSubText(newFieldP2,"Ejer: " + "\n" + player2.getName());
                 }
                 if (field.getIsOwned(newFieldP2) == true && field.getOwnedBy(newFieldP2) == 1) {
-                    accountPlayerTwo.withdraw(field.getPrice(newFieldP2));
-                    accountPlayerOne.deposit(field.getPrice(newFieldP2));
-                    player2.setBalance(accountPlayerTwo.getBalance());
-                    player1.setBalance(accountPlayerOne.getBalance());
+                    //Hvis spiller et ejer hele det par man er landet på, betaler spiller to dobbelt.
+                    if (field.getOwnedBy(newFieldP2+1) == 1 || field.getOwnedBy(newFieldP2-1) == 1) {
+                        accountPlayerTwo.withdraw(field.getPrice(newFieldP2)*2);
+                        accountPlayerOne.deposit(field.getPrice(newFieldP2)*2);
+                        player2.setBalance(accountPlayerTwo.getBalance());
+                        player1.setBalance(accountPlayerOne.getBalance());
+                    } else {
+                        accountPlayerTwo.withdraw(field.getPrice(newFieldP2));
+                        accountPlayerOne.deposit(field.getPrice(newFieldP2));
+                        player2.setBalance(accountPlayerTwo.getBalance());
+                        player1.setBalance(accountPlayerOne.getBalance());
+                    }
                 }
                 if (accountPlayerTwo.getBalance() <= 0) {
                     bankruptP2 = true;
