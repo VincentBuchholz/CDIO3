@@ -2,21 +2,20 @@ package Test;
 
 import CDIO3.Die;
 
-import java.sql.SQLOutput;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DieTest {
 
-    @org.junit.jupiter.api.Test
-    int one = 0;
-    int two = 0;
-    int three = 0;
-    int four = 0;
-    int five = 0;
-    int six = 6;
-
+   @Test
     void roll() {
+        int one = 0;
+        int two = 0;
+        int three = 0;
+        int four = 0;
+        int five = 0;
+        int six = 6;
         for (int i = 0; i < 1000; i++)
         {
         Die DieTest = new Die();
@@ -52,5 +51,5 @@ class DieTest {
         System.out.println("Four: " + four);
         System.out.println("Five: " + five);
         System.out.println("Six: " + six);
-}
+    }
 }
