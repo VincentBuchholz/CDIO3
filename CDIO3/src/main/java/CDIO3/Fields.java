@@ -263,6 +263,10 @@ public class Fields{
         fields[22].setTitle("STRANDPROMENADEN");
         fields[22].setSubText("M5");
         fields[22].setBackGroundColor(Color.blue);
+        fields[23].setTitle("SWIMMINGPOOL");
+        fields[23].setSubText("M5");
+        fields[23].setBackGroundColor(Color.blue);
+
     }
 
     public void setFieldsSubText (int fieldNumber, String subText){
