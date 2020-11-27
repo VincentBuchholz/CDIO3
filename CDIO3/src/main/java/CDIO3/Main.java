@@ -8,6 +8,7 @@ import gui_codebehind.GUI_BoardController;
 import gui_fields.GUI_Field;
 import java.awt.*;
 import gui_fields.GUI_Street;
+import java.util.Random;
 
 
 public class Main {
@@ -15,6 +16,7 @@ public class Main {
 
         Fields field = new Fields();
         GUI gui = new GUI(field.fields);
+        Random rand = new Random();
 
 
         GUI_BoardController controller = new GUI_BoardController(gui.getFields(), Color.lightGray);
@@ -38,6 +40,9 @@ public class Main {
 
             String roll;
             Die die = new Die();
+
+            String takeCard;
+            int cardNumber;
 
 
             int previousFieldP1 = 0;
@@ -72,6 +77,51 @@ public class Main {
                 gui.getFields()[previousFieldP1].setCar(player1, false);
                 gui.getFields()[newFieldP1].setCar(player1, true);
 
+                //Chance kort
+                if (newFieldP1 == 3 || newFieldP1 == 9 || newFieldP1 == 15 || newFieldP1 == 21) {
+                    takeCard = controller.getUserButtonPressed(player1.getName() + "tag et chance kort","Tag kort");
+                    cardNumber = rand.nextInt(4)+1;
+                    if (takeCard.contentEquals("Take card")) {
+
+
+                        switch (cardNumber) {
+                            case 1:
+                                controller.displayChanceCard("Gå til start og modtag M2");
+                                previousFieldP1 = newFieldP1;
+                                newFieldP1 = 0;
+                                gui.getFields()[previousFieldP1].setCar(player1, false);
+                                gui.getFields()[newFieldP1].setCar(player1, true);
+                                accountPlayerOne.deposit(2);
+                                player1.setBalance(accountPlayerOne.getBalance());
+                                break;
+                            case 2:
+                                controller.displayChanceCard("Du har spist for meget slik, betalt M2");
+                                accountPlayerOne.withdraw(2);
+                                player1.setBalance(accountPlayerOne.getBalance());
+                                break;
+                            case 3:
+                                controller.displayChanceCard("Ryk frem til strandprommenaden");
+                                previousFieldP1 = newFieldP1;
+                                newFieldP1 = 23;
+                                gui.getFields()[previousFieldP1].setCar(player1, false);
+                                gui.getFields()[newFieldP1].setCar(player1, true);
+                                break;
+                            case 4:
+                                controller.displayChanceCard("Det er din fødselsdag alle giver dig M1");
+                                accountPlayerOne.deposit(1);
+                                accountPlayerTwo.withdraw(1);
+                                player1.setBalance(accountPlayerOne.getBalance());
+                                player2.setBalance(accountPlayerTwo.getBalance());
+                                break;
+                            case 5:
+                                controller.displayChanceCard("Du har lavet alle dine lektier, modtag M2 fra banken");
+                                accountPlayerOne.deposit(2);
+                                player1.setBalance(accountPlayerOne.getBalance());
+                                break;
+                        }
+                    }
+                }
+
 
                 if (field.getIsOwnable(newFieldP1) == true && field.getIsOwned(newFieldP1) == false) {
                     accountPlayerOne.withdraw(field.getPrice(newFieldP1));
@@ -99,6 +149,7 @@ public class Main {
                     break;
                 }
 
+
                 previousFieldP1 = newFieldP1;
 
                 roll = controller.getUserButtonPressed(player2.getName() + " press to roll", "roll");
@@ -124,6 +175,52 @@ public class Main {
                 //moves player two
                 gui.getFields()[previousFieldP2].setCar(player2, false);
                 gui.getFields()[newFieldP2].setCar(player2, true);
+
+                //Chance kort
+                if (newFieldP2 == 3 || newFieldP2 == 9 || newFieldP2 == 15 || newFieldP2 == 21) {
+                    takeCard = controller.getUserButtonPressed(player2.getName()" tag et chance kort","Tag kort");
+                    cardNumber = rand.nextInt(4)+1;
+                    if (takeCard.contentEquals("Take card")) {
+
+
+                        switch (cardNumber) {
+                            case 1:
+                                controller.displayChanceCard("Gå til start og modtag M2");
+                                previousFieldP2 = newFieldP2;
+                                newFieldP2 = 0;
+                                gui.getFields()[previousFieldP2].setCar(player2, false);
+                                gui.getFields()[newFieldP2].setCar(player2, true);
+                                accountPlayerTwo.deposit(2);
+                                player2.setBalance(accountPlayerOne.getBalance());
+                                break;
+                            case 2:
+                                controller.displayChanceCard("Du har spist for meget slik, betal M2");
+                                accountPlayerTwo.withdraw(2);
+                                player2.setBalance(accountPlayerTwo.getBalance());
+                                break;
+                            case 3:
+                                controller.displayChanceCard("Ryk frem til strandprommenaden");
+                                previousFieldP2 = newFieldP2;
+                                newFieldP2 = 23;
+                                gui.getFields()[previousFieldP2].setCar(player2, false);
+                                gui.getFields()[newFieldP2].setCar(player2, true);
+                                break;
+                            case 4:
+                                controller.displayChanceCard("Det er din fødselsdag alle giver dig M1");
+                                accountPlayerTwo.deposit(1);
+                                accountPlayerOne.withdraw(1);
+                                player2.setBalance(accountPlayerTwo.getBalance());
+                                player1.setBalance(accountPlayerOne.getBalance());
+                                break;
+                            case 5:
+                                controller.displayChanceCard("Du har lavet alle dine lektier, modtag M2 fra banken");
+                                accountPlayerTwo.deposit(2);
+                                player2.setBalance(accountPlayerTwo.getBalance());
+                                break;
+                        }
+                    }
+                }
+
 
                 if (field.getIsOwnable(newFieldP2) == true && field.getIsOwned(newFieldP2) == false) {
                     accountPlayerTwo.withdraw(field.getPrice(newFieldP2));
