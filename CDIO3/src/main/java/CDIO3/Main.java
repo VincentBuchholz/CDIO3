@@ -95,7 +95,7 @@ public class Main {
                                 player1.setBalance(accountPlayerOne.getBalance());
                                 break;
                             case 2:
-                                controller.displayChanceCard("Du har spist for meget slik, betalt M2");
+                                controller.displayChanceCard("Du har spist for meget slik, betal M2");
                                 accountPlayerOne.withdraw(2);
                                 player1.setBalance(accountPlayerOne.getBalance());
                                 break;
