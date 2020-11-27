@@ -178,7 +178,7 @@ public class Main {
 
                 //Chance kort
                 if (newFieldP2 == 3 || newFieldP2 == 9 || newFieldP2 == 15 || newFieldP2 == 21) {
-                    takeCard = controller.getUserButtonPressed(player2.getName()" tag et chance kort","Tag kort");
+                    takeCard = controller.getUserButtonPressed(player2.getName() + " tag et chance kort","Tag kort");
                     cardNumber = rand.nextInt(4)+1;
                     if (takeCard.contentEquals("Take card")) {
 
