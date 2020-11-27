@@ -159,6 +159,7 @@ public class Fields{
         return ownedBy[fieldNumber];
     }
 
+    //Felter i et array
     GUI_Field[] fields = {
             new GUI_Street(),
             new GUI_Street(),
@@ -189,7 +190,7 @@ public class Fields{
     };
 
 
-
+    //Tekst til felter
     {
         fields[0].setTitle("Start");
         fields[0].setBackGroundColor(Color.white);

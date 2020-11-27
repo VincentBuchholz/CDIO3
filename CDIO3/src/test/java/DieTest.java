@@ -1,5 +1,3 @@
-package Test;
-
 import CDIO3.Die;
 
 import org.junit.jupiter.api.Test;

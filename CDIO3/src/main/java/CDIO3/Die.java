@@ -2,7 +2,6 @@ package CDIO3;
 
 import java.util.Random;
 
-
     public class Die {
         Random rand = new Random();
 
