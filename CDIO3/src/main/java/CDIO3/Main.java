@@ -10,7 +10,6 @@ import java.awt.*;
 import gui_fields.GUI_Street;
 import java.util.Random;
 
-
 public class Main {
     public static void main(String[] args) {
 
@@ -20,18 +19,18 @@ public class Main {
 
 
         GUI_BoardController controller = new GUI_BoardController(gui.getFields(), Color.lightGray);
-        int amountOfPlayers = controller.getUserInteger("Enter amount of players between 2 and 4", 2, 4);
+        int amountOfPlayers = controller.getUserInteger("Angiv antal spillere, mellem 2 og 4", 2, 4);
 
         if (amountOfPlayers == 2) {
 
 
-            GUI_Player player1 = new GUI_Player(controller.getUserString("Player one enter your name"), 20);
+            GUI_Player player1 = new GUI_Player(controller.getUserString("Spiller 1 (den yngste) indtast dit navn"), 20);
             controller.addPlayer(player1);
             gui.getFields()[0].setCar(player1, true);
             Account accountPlayerOne = new Account();
             accountPlayerOne.setBalance(20);
 
-            GUI_Player player2 = new GUI_Player(controller.getUserString("Player two enter your name"), 20);
+            GUI_Player player2 = new GUI_Player(controller.getUserString("Spiller 2 indtast dit navn"), 20);
             controller.addPlayer(player2);
             gui.getFields()[0].setCar(player2, true);
             Account accountPlayerTwo = new Account();
@@ -54,7 +53,7 @@ public class Main {
 
             do {
 
-                roll = controller.getUserButtonPressed(player1.getName() + " press to roll", "roll");
+                roll = controller.getUserButtonPressed(player1.getName() + " tryk for alle kaste", "roll");
 
                 if (roll.contentEquals("roll")) {
                     die.roll();
@@ -69,7 +68,7 @@ public class Main {
 
                 if (newFieldP1 == 18) {
                     newFieldP1 = 6;
-                    controller.showMessage(player1.getName() + " go to jail!");
+                    controller.showMessage(player1.getName() + " gå i fængsel!");
                     accountPlayerOne.withdraw(1);
                 }
 
@@ -152,7 +151,7 @@ public class Main {
 
                 previousFieldP1 = newFieldP1;
 
-                roll = controller.getUserButtonPressed(player2.getName() + " press to roll", "roll");
+                roll = controller.getUserButtonPressed(player2.getName() + " tryk for at kaste med terningen", "roll");
 
                 if (roll.contentEquals("roll")) {
                     die.roll();
@@ -168,7 +167,7 @@ public class Main {
 
                 if (newFieldP2 == 18) {
                     newFieldP2 = 6;
-                    controller.showMessage(player2.getName() + " go to jail!");
+                    controller.showMessage(player2.getName() + " gå i fængsel!");
                     accountPlayerOne.withdraw(1);
                 }
 
@@ -254,10 +253,10 @@ public class Main {
 
 
             if (accountPlayerOne.getBalance() > accountPlayerTwo.getBalance()) {
-                controller.showMessage(player1.getName() + " you win!");
+                controller.showMessage(player1.getName() + " du vinder!");
             }
             if (accountPlayerTwo.getBalance() > accountPlayerOne.getBalance()) {
-                controller.showMessage(player2.getName() + " you win!");
+                controller.showMessage(player2.getName() + " du vinder!");
             }
         }
 
@@ -266,21 +265,21 @@ public class Main {
         if (amountOfPlayers == 3 ) {
 
             //Creates player one
-            GUI_Player player1 = new GUI_Player(controller.getUserString("Player one enter your name"), 18);
+            GUI_Player player1 = new GUI_Player(controller.getUserString("Spiller 1 (den yngste) indtast dit navn"), 18);
             controller.addPlayer(player1);
             gui.getFields()[0].setCar(player1, true);
             Account accountPlayerOne = new Account();
             accountPlayerOne.setBalance(18);
 
             //Creates player two
-            GUI_Player player2 = new GUI_Player(controller.getUserString("Player two enter your name"), 18);
+            GUI_Player player2 = new GUI_Player(controller.getUserString("Spiller 2 indtast dit navn"), 18);
             controller.addPlayer(player2);
             gui.getFields()[0].setCar(player2, true);
             Account accountPlayerTwo = new Account();
             accountPlayerTwo.setBalance(18);
 
             //Creates player three
-            GUI_Player player3 = new GUI_Player(controller.getUserString("Player three enter your name"), 18);
+            GUI_Player player3 = new GUI_Player(controller.getUserString("Spiller 3 indtast dit navn"), 18);
             controller.addPlayer(player3);
             gui.getFields()[0].setCar(player3, true);
             Account accountPlayerThree = new Account();
@@ -306,7 +305,7 @@ public class Main {
 
             do {
 
-                roll = controller.getUserButtonPressed(player1.getName() + " press to roll", "roll");
+                roll = controller.getUserButtonPressed(player1.getName() + " tryk for at kaste", "roll");
 
                 if (roll.contentEquals("roll")) {
                     die.roll();
@@ -323,7 +322,7 @@ public class Main {
                 //player  goes to jail
                 if (newFieldP1 == 18) {
                     newFieldP1 = 6;
-                    controller.showMessage(player1.getName() + " go to jail!");
+                    controller.showMessage(player1.getName() + " gå i fængsel!");
                     accountPlayerOne.withdraw(1);
                 }
 
@@ -427,7 +426,7 @@ public class Main {
 
                 previousFieldP1 = newFieldP1;
 
-                roll = controller.getUserButtonPressed(player2.getName() + " press to roll", "roll");
+                roll = controller.getUserButtonPressed(player2.getName() + " Tryk for at kaste med terningen", "roll");
 
                 if (roll.contentEquals("roll")) {
                     die.roll();
@@ -444,7 +443,7 @@ public class Main {
                 //send player two to jail
                 if (newFieldP2 == 18) {
                     newFieldP2 = 6;
-                    controller.showMessage(player2.getName() + " go to jail!");
+                    controller.showMessage(player2.getName() + " gå i fængsel!");
                     accountPlayerOne.withdraw(1);
                 }
 
@@ -565,7 +564,7 @@ public class Main {
                 //player  goes to jail
                 if (newFieldP3 == 18) {
                     newFieldP3 = 6;
-                    controller.showMessage(player3.getName() + " go to jail!");
+                    controller.showMessage(player3.getName() + " gå i fængsel!");
                     accountPlayerThree.withdraw(1);
                 }
 
@@ -674,26 +673,26 @@ public class Main {
 
             if (bankruptP3) {
                 if (accountPlayerOne.getBalance() > accountPlayerTwo.getBalance()) {
-                    controller.showMessage(player1.getName() + " you win!");
+                    controller.showMessage(player1.getName() + " du vinder!");
                 }
                 if (accountPlayerTwo.getBalance() > accountPlayerOne.getBalance()) {
-                    controller.showMessage(player2.getName() + " you win!");
+                    controller.showMessage(player2.getName() + " du vinder!");
                 }
             }
                 if (bankruptP2) {
                     if (accountPlayerThree.getBalance() > accountPlayerTwo.getBalance()) {
-                        controller.showMessage(player3.getName() + " you win!");
+                        controller.showMessage(player3.getName() + " du vinder!");
                     }
                     if (accountPlayerTwo.getBalance() > accountPlayerThree.getBalance()) {
-                        controller.showMessage(player2.getName() + " you win!");
+                        controller.showMessage(player2.getName() + " du vinder!");
                     }
             }
                 if (bankruptP1) {
                     if (accountPlayerThree.getBalance() > accountPlayerOne.getBalance()) {
-                        controller.showMessage(player3.getName() + " you win!");
+                        controller.showMessage(player3.getName() + " du vinder!");
                     }
                     if (accountPlayerOne.getBalance() > accountPlayerThree.getBalance()) {
-                        controller.showMessage(player1.getName() + " you win!");
+                        controller.showMessage(player1.getName() + " du vinder!");
                     }
                 }
              }
@@ -702,28 +701,28 @@ public class Main {
         if (amountOfPlayers == 4 ) {
 
             //Creates player one
-            GUI_Player player1 = new GUI_Player(controller.getUserString("Player one enter your name"), 16);
+            GUI_Player player1 = new GUI_Player(controller.getUserString("Spiller 1 (den yngste) indtast dit navn"), 16);
             controller.addPlayer(player1);
             gui.getFields()[0].setCar(player1, true);
             Account accountPlayerOne = new Account();
             accountPlayerOne.setBalance(16);
 
             //Creates player two
-            GUI_Player player2 = new GUI_Player(controller.getUserString("Player two enter your name"), 16);
+            GUI_Player player2 = new GUI_Player(controller.getUserString("Spiller 2 indtast dit navn"), 16);
             controller.addPlayer(player2);
             gui.getFields()[0].setCar(player2, true);
             Account accountPlayerTwo = new Account();
             accountPlayerTwo.setBalance(16);
 
             //Creates player three
-            GUI_Player player3 = new GUI_Player(controller.getUserString("Player three enter your name"), 16);
+            GUI_Player player3 = new GUI_Player(controller.getUserString("Spiller 3 indtast dit navn"), 16);
             controller.addPlayer(player3);
             gui.getFields()[0].setCar(player3, true);
             Account accountPlayerThree = new Account();
             accountPlayerThree.setBalance(16);
 
             //Creates player four
-            GUI_Player player4 = new GUI_Player(controller.getUserString("Player four enter your name"), 16);
+            GUI_Player player4 = new GUI_Player(controller.getUserString("Spiller 4 indtast dit navn"), 16);
             controller.addPlayer(player4);
             gui.getFields()[0].setCar(player4, true);
             Account accountPlayerFour = new Account();
@@ -752,7 +751,7 @@ public class Main {
 
             do {
 
-                roll = controller.getUserButtonPressed(player1.getName() + " press to roll", "roll");
+                roll = controller.getUserButtonPressed(player1.getName() + " tryk for at kaste med terningerne", "roll");
 
                 if (roll.contentEquals("roll")) {
                     die.roll();
@@ -769,7 +768,7 @@ public class Main {
                 //player  goes to jail
                 if (newFieldP1 == 18) {
                     newFieldP1 = 6;
-                    controller.showMessage(player1.getName() + " go to jail!");
+                    controller.showMessage(player1.getName() + " gå i fængsel!");
                     accountPlayerOne.withdraw(1);
                 }
 
@@ -886,7 +885,7 @@ public class Main {
 
                 previousFieldP1 = newFieldP1;
 
-                roll = controller.getUserButtonPressed(player2.getName() + " press to roll", "roll");
+                roll = controller.getUserButtonPressed(player2.getName() + " tryk for at kaste med terningen", "roll");
 
                 if (roll.contentEquals("roll")) {
                     die.roll();
@@ -903,7 +902,7 @@ public class Main {
                 //send player two to jail
                 if (newFieldP2 == 18) {
                     newFieldP2 = 6;
-                    controller.showMessage(player2.getName() + " go to jail!");
+                    controller.showMessage(player2.getName() + " gå i fængsel!");
                     accountPlayerOne.withdraw(1);
                 }
 
@@ -1036,7 +1035,7 @@ public class Main {
                 //player  goes to jail
                 if (newFieldP3 == 18) {
                     newFieldP3 = 6;
-                    controller.showMessage(player3.getName() + " go to jail!");
+                    controller.showMessage(player3.getName() + " gå i fængsel!");
                     accountPlayerThree.withdraw(1);
                 }
 
@@ -1151,7 +1150,7 @@ public class Main {
 
                 previousFieldP3 = newFieldP3;
 
-                roll = controller.getUserButtonPressed(player4.getName() + " press to roll", "roll");
+                roll = controller.getUserButtonPressed(player4.getName() + " tryk for at kaste med terningen", "roll");
 
                 if (roll.contentEquals("roll")) {
                     die.roll();
@@ -1168,7 +1167,7 @@ public class Main {
                 //player  goes to jail
                 if (newFieldP4 == 18) {
                     newFieldP4 = 6;
-                    controller.showMessage(player4.getName() + " go to jail!");
+                    controller.showMessage(player4.getName() + " gå i fængsel!");
                     accountPlayerFour.withdraw(1);
                 }
 
@@ -1290,24 +1289,24 @@ public class Main {
 
             //Player one wins
             if (accountPlayerOne.getBalance() > accountPlayerTwo.getBalance() && accountPlayerOne.getBalance() > accountPlayerThree.getBalance() && accountPlayerOne.getBalance() > accountPlayerFour.getBalance()) {
-                controller.showMessage(player1.getName() + " you win!");
+                controller.showMessage(player1.getName() + " du vinder!");
             }
 
             //Player two wins
             if (accountPlayerTwo.getBalance() > accountPlayerOne.getBalance() && accountPlayerTwo.getBalance() > accountPlayerThree.getBalance() && accountPlayerTwo.getBalance() > accountPlayerFour.getBalance()) {
-                controller.showMessage(player2.getName() + " you win!");
+                controller.showMessage(player2.getName() + " du vinder!");
             }
 
             //player three wins
             if (accountPlayerThree.getBalance() > accountPlayerOne.getBalance() && accountPlayerThree.getBalance() > accountPlayerTwo.getBalance() && accountPlayerThree.getBalance() > accountPlayerFour.getBalance()) {
-                controller.showMessage(player3.getName() + " you win!");
+                controller.showMessage(player3.getName() + " du vinder!");
             }
 
             //player four wins
             if (accountPlayerFour.getBalance() > accountPlayerOne.getBalance() && accountPlayerFour.getBalance() > accountPlayerTwo.getBalance() && accountPlayerFour.getBalance() > accountPlayerThree.getBalance()) {
+            controller.showMessage(player4.getName() + " du vinder!");
             }
 
         }
     }
 }
-
