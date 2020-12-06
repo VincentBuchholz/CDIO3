@@ -12,27 +12,33 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-
+        //Opretter et nyt opbekt af klassen Fields som bliver sat = metoden Fields()
         Fields field = new Fields();
+
         GUI gui = new GUI(field.fields);
         Random rand = new Random();
 
-
+        //Bruges til at styre gui'en
         GUI_BoardController controller = new GUI_BoardController(gui.getFields(), Color.lightGray);
         int amountOfPlayers = controller.getUserInteger("Angiv antal spillere, mellem 2 og 4", 2, 4);
-
+        //spillet kører herfra til 2 spillere. if-then statement
         if (amountOfPlayers == 2) {
 
-
+            //opretter ny spiller (player 1) GUI_Player laver et objekt player1 som bliver instantieret til en GUI_Player(controller.getUserString())
             GUI_Player player1 = new GUI_Player(controller.getUserString("Spiller 1 (den yngste) indtast dit navn"), 20);
             controller.addPlayer(player1);
             gui.getFields()[0].setCar(player1, true);
+            //Opretter et nyt opbekt af klassen Account som bliver sat = metoden Account().
+            //Så kan vi lave en start balance til spilleren på 20M
             Account accountPlayerOne = new Account();
             accountPlayerOne.setBalance(20);
 
+            //opretter spiller 2
             GUI_Player player2 = new GUI_Player(controller.getUserString("Spiller 2 indtast dit navn"), 20);
             controller.addPlayer(player2);
             gui.getFields()[0].setCar(player2, true);
+            //Opretter et nyt opbekt af klassen Account som bliver sat = metoden Account().
+            //Så kan vi lave en start balance til spilleren på 20M
             Account accountPlayerTwo = new Account();
             accountPlayerTwo.setBalance(20);
 
@@ -51,24 +57,29 @@ public class Main {
             boolean bankruptP1 = false;
             boolean bankruptP2 = false;
 
+            //spillet "starter her"
+            //starter med at lave do loopet for at roll terningerne
             do {
 
-                roll = controller.getUserButtonPressed(player1.getName() + " tryk for alle kaste", "roll");
-
+                roll = controller.getUserButtonPressed(player1.getName() + " tryk for at kaste", "roll");
+            //roll og der bruges vores roll metode i Die klassen
                 if (roll.contentEquals("roll")) {
                     die.roll();
                     controller.setDie(die.getDie());
                 }
-
+                //rykker til et nyt felt fra prev felt. det nye felt kommer an på værdien fra die.getDie()
                 newFieldP1 = die.getDie() + previousFieldP1;
+                //når vi passere start får vi 2M
                 if (newFieldP1 >= 23) {
                     accountPlayerOne.deposit(2);
+                    //starter forfra i arrayet. første felt igen
                     newFieldP1 = newFieldP1 - 23;
                 }
-
+                //hvis du lander på gå i fængsel = gå i fængsel
                 if (newFieldP1 == 18) {
                     newFieldP1 = 6;
                     controller.showMessage(player1.getName() + " gå i fængsel!");
+                    //koster 1 M at komme ud
                     accountPlayerOne.withdraw(1);
                 }
 
@@ -77,12 +88,15 @@ public class Main {
                 gui.getFields()[newFieldP1].setCar(player1, true);
 
                 //Chance kort
+                //chance kort på felt 3, 9, 15, 21
                 if (newFieldP1 == 3 || newFieldP1 == 9 || newFieldP1 == 15 || newFieldP1 == 21) {
+                    //beder spilleren om at tage et chance kort
                     takeCard = controller.getUserButtonPressed(player1.getName() + " tag et chance kort","Tag kort");
+                    //objekt cardNumber, random chance kort som du kan få. vi har 5 kort. derfor 4+1
                     cardNumber = rand.nextInt(4)+1;
                     if (takeCard.contentEquals("Tag kort")) {
 
-
+                        //viser alle de forskellige chancekort scenarier. switch statement giver en case mellem 1-5
                         switch (cardNumber) {
                             case 1:
                                 controller.displayChanceCard("Gå til start og modtag M2");
@@ -121,7 +135,8 @@ public class Main {
                     }
                 }
 
-
+                //ser om spiller 1 er landet på et felt der kan ejes og ikke er ejet allerede.
+                //hvis if statement er true køber den feltet
                 if (field.getIsOwnable(newFieldP1) == true && field.getIsOwned(newFieldP1) == false) {
                     accountPlayerOne.withdraw(field.getPrice(newFieldP1));
                     player1.setBalance(accountPlayerOne.getBalance());
@@ -129,13 +144,16 @@ public class Main {
                     field.setOwnedBy(newFieldP1, 1);
                     field.setFieldsSubText(newFieldP1, "Ejer: " + "\n" + player1.getName());
                 }
+                //ser om feltet er ejet og om det er ejet af spiller 2
                 if (field.getIsOwned(newFieldP1) == true && field.getOwnedBy(newFieldP1) == 2) {
                     //Hvis spiller to ejer hele det par man er landet på, betaler spiller et dobbelt.
+                    //checker om spilleren ejer et felt ved siden af det ejede felt
                     if (field.getOwnedBy(newFieldP1 + 1) == field.getOwnedBy(newFieldP1) || field.getOwnedBy(newFieldP1 - 1) == field.getOwnedBy(newFieldP1)) {
                         accountPlayerOne.withdraw(field.getPrice(newFieldP1) * 2);
                         accountPlayerTwo.deposit(field.getPrice(newFieldP1) * 2);
                         player1.setBalance(accountPlayerOne.getBalance());
                         player2.setBalance(accountPlayerTwo.getBalance());
+                    //ellers betaler du prisen som der står på feltet
                     } else {
                         accountPlayerOne.withdraw(field.getPrice(newFieldP1));
                         accountPlayerTwo.deposit(field.getPrice(newFieldP1));
@@ -143,31 +161,37 @@ public class Main {
                         player2.setBalance(accountPlayerTwo.getBalance());
                     }
                 }
+                //hvis spiller balance er lig eller mindre end 0 breaker do loopet
+                //bankrupt bliver ændret til true som var et objekt at typen boolean
+                //Hvis spilleren har en på balance på 0 stopper loopet og der bliver talt op hvilken spiller der har den største balance.
+                //Spilleren med den største balance vinder spillet. Står cirka på linje 275
                 if (accountPlayerOne.getBalance() <= 0) {
                     bankruptP1 = true;
                     break;
                 }
 
-
+                //sætter prevfield = newField så du kan komme gennem alle felterne og blive på felter i stedet for at starte fra felt 0 hver gang
                 previousFieldP1 = newFieldP1;
 
                 roll = controller.getUserButtonPressed(player2.getName() + " tryk for at kaste med terningen", "roll");
-
+                //roll og der bruges vores roll metode i Die klassen
                 if (roll.contentEquals("roll")) {
                     die.roll();
                     controller.setDie(die.getDie());
                 }
 
-
+                // rykker til et nyt feltt fra prev felt. det nye felt kommer an på værdien fra die.getDie()
                 newFieldP2 = die.getDie() + previousFieldP2;
+                //når vi passere start får vi 2M og starter forfra i arrayet, første felt igen.
                 if (newFieldP2 >= 23) {
                     newFieldP2 = newFieldP2 - 23;
                     accountPlayerTwo.deposit(2);
                 }
-
+                // hvis du lander på gå i fængsel = gå i fængsel
                 if (newFieldP2 == 18) {
                     newFieldP2 = 6;
                     controller.showMessage(player2.getName() + " gå i fængsel!");
+                    //koster 1M for at komme ud
                     accountPlayerOne.withdraw(1);
                 }
 
@@ -176,12 +200,15 @@ public class Main {
                 gui.getFields()[newFieldP2].setCar(player2, true);
 
                 //Chance kort
+                //chance kort på felt 3, 9, 15, 21
                 if (newFieldP2 == 3 || newFieldP2 == 9 || newFieldP2 == 15 || newFieldP2 == 21) {
+                    //beder spilleren om at tage et chance kort
                     takeCard = controller.getUserButtonPressed(player2.getName() + " tag et chance kort","Tag kort");
+                    //objekt cardNumber, random chance kort som du kan få. vi har 5 kort. derfor 4+1
                     cardNumber = rand.nextInt(4)+1;
                     if (takeCard.contentEquals("Tag kort")) {
 
-
+                        //viser alle de forskellige chancekort scenarier. switch statement giver en case mellem 1-5
                         switch (cardNumber) {
                             case 1:
                                 controller.displayChanceCard("Gå til start og modtag M2");
@@ -220,7 +247,8 @@ public class Main {
                     }
                 }
 
-
+                //ser om spiller 2 er landet på et felt der kan ejes og ikke er ejet allerede.
+                //hvis if statement er true køber den feltet
                 if (field.getIsOwnable(newFieldP2) == true && field.getIsOwned(newFieldP2) == false) {
                     accountPlayerTwo.withdraw(field.getPrice(newFieldP2));
                     player2.setBalance(accountPlayerTwo.getBalance());
@@ -228,13 +256,16 @@ public class Main {
                     field.setOwnedBy(newFieldP2, 2);
                     field.setFieldsSubText(newFieldP2, "Ejer: " + "\n" + player2.getName());
                 }
+                //Hvis spiller to ejer hele det par man er landet på, betaler spiller et dobbelt.
+                //checker om spilleren ejer et felt ved siden af det ejede felt
                 if (field.getOwnedBy(newFieldP2 + 1) == field.getOwnedBy(newFieldP2) || field.getOwnedBy(newFieldP2 - 1) == field.getOwnedBy(newFieldP2)) {
-                    //Hvis spiller et ejer hele det par man er landet på, betaler spiller to dobbelt.
+
                     if (field.getOwnedBy(newFieldP2 + 1) == 1 || field.getOwnedBy(newFieldP2 - 1) == 1) {
                         accountPlayerTwo.withdraw(field.getPrice(newFieldP2) * 2);
                         accountPlayerOne.deposit(field.getPrice(newFieldP2) * 2);
                         player2.setBalance(accountPlayerTwo.getBalance());
                         player1.setBalance(accountPlayerOne.getBalance());
+                        //ellers betaler du prisen som der står på feltet
                     } else {
                         accountPlayerTwo.withdraw(field.getPrice(newFieldP2));
                         accountPlayerOne.deposit(field.getPrice(newFieldP2));
@@ -242,13 +273,17 @@ public class Main {
                         player1.setBalance(accountPlayerOne.getBalance());
                     }
                 }
+                //hvis spiller balance er lig eller mindre end 0 breaker do loopet
+                //bankrupt bliver ændret til true som var et objekt at typen boolean
+                //Hvis spilleren har en på balance på 0 stopper loopet og der bliver talt op hvilken spiller der har den største balance.
+                //Spilleren med den største balance vinder spillet. Står cirka på linje 275
                 if (accountPlayerTwo.getBalance() <= 0) {
                     bankruptP2 = true;
                     break;
                 }
 
                 previousFieldP2 = newFieldP2;
-
+            //do loopet virker når begge bankrupt = false
             } while (bankruptP1 == false && bankruptP2 == false);
 
 
@@ -259,6 +294,10 @@ public class Main {
                 controller.showMessage(player2.getName() + " du vinder!");
             }
         }
+        //spillet stopper her for 2 spillere. if-then statement for amount of player == 2
+
+        //det samme sker for 3 & 4 spiller. Koden er duplikeret og tilpasset til at fungere med flere spillere
+
 
 
         // three players

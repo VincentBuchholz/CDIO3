@@ -1,13 +1,16 @@
 package CDIO3;
-
+//Importere felter fra gui'en vi har fået udleveret
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
 
 import java.awt.*;
-
+//klasse
 public class Fields{
+    //Array af typen boolean, objekt kaldet isOwnable. Du instantiere objektet af klassen boolean til et array med
+    //24 felter. 0 til 23. Et array index starter altid på 0, derfor 0-23 (i alt 24 felter)
      boolean[] isOwnable = new boolean[24]; {
+         //hver af array felterne af en værdi (true eller false), før var de alle sammen = null
         isOwnable[0] = false;
         isOwnable[1] = true;
         isOwnable[2] = true;
@@ -37,14 +40,17 @@ public class Fields{
 
 
 
-
+    //getIsOwnable metode af typen boolean. Metoden tager som input en int fieldNumber
     public boolean getIsOwnable(int fieldNumber) {
+         //returnere isOwnable fra arrayet oven over med et fieldNumber 0-23
         return isOwnable[fieldNumber];
 
     }
 
-
+    //Array af typen boolean, objekt kaldet isOwned. Du instantiere objektet af klassen boolean til et array med
+    //24 felter. 0 til 23. Et array index starter altid på 0, derfor 0-23 (i alt 24 felter)
     boolean[] isOwned = new boolean[24]; {
+        //giver hvert array felt en værdi, før var de = null
         isOwned[0] = false;
         isOwned[1] = false;
         isOwned[2] = false;
@@ -70,21 +76,22 @@ public class Fields{
         isOwned[22] = false;
         isOwned[23] = false;
     }
-
+    //void metoden setIsOwned() med inputs, int fieldNumber og boolean purchased
     public void setIsOwned(int fieldNumber, boolean purchased) {
         int number = fieldNumber;
         boolean owned = purchased;
-
+        //laver objektet isOwned[fieldNumber] = owned som er instantieret boolean owned = purchased;
         isOwned[fieldNumber] = owned;
 
     }
-
+    //getIsOwned metode af typen boolean. Metoden tager som input en int fieldNumber og returnere isOwned[fieldNumber]
     public boolean getIsOwned(int fieldNumber) {
         return isOwned[fieldNumber];
     }
 
+    //opretter et array af typen int, objekt er kaldet price, bliver instantieret som et int array med 24 felter (0-23)
     int[] price = new int[24];
-
+    // giver hver felt i arrayet en værdi, før = null
     {
         price[1] = 1;
         price[2] = 1;
@@ -104,11 +111,16 @@ public class Fields{
         price[23] = 5;
 
     }
+    //Metoden getPrice af klassen int med et input(int fieldNumber) og returere price[fieldNumber]
+    // giver prisen på felterne i spillet  af hvert felt i arrayet
     public int getPrice(int fieldNumber) {
         return price[fieldNumber];
     }
 
+    //nyt array af typen int, objekt kaldet rent bliver instantieret med et array på 24 felter. 0-23
     int[] rent = new int[24]; {
+        //giver hvert felt en værdi før var værdien af hvert felt i arrayet = null
+        //grunden til at alle felterne ikke får en værdi er at der selvfølgelig ikke er nogen pris på chance felter, fængsel osv.
         rent[1] = 1;
         rent[2] = 1;
         rent[4] = 1;
@@ -126,7 +138,7 @@ public class Fields{
         rent[22] = 5;
         rent[23] = 5;
     }
-
+//bliver ikke brugt, price metoden bliver brugt i stedet når spiller landet på et ejet felt der ikke er deres
     public int getRent(int fieldNumber) {
         return rent[fieldNumber];
     }
@@ -149,17 +161,18 @@ public class Fields{
         ownedBy[22] = 0;
         ownedBy[23] = 0;
     }
-
+    //setOwnedBy metode med inputs int fieldNumber og int playerNumber. arrayet ownedBy[] bliver til delt værdien af en playerNumber
+    //Så holdes der styr på hvilke spillere der ejer hvilke felter
     public void setOwnedBy(int fieldNumber, int playerNumber) {
         ownedBy[fieldNumber] = playerNumber;
 
     }
-
+    // getOwnedBy metoden af klassen int med input int fieldNumber som returnere ownedBy[fieldNumber] arrayet
     public int getOwnedBy(int fieldNumber) {
         return ownedBy[fieldNumber];
     }
 
-    //Felter i et array
+    //Felter i et array bliver implementeret i GUI
     GUI_Field[] fields = {
             new GUI_Street(),
             new GUI_Street(),
