@@ -288,7 +288,7 @@ public class Fields{
     }
 
 
-
+//Ikke relevant, lille test. Behøver ikke være der
     public static void main(String[] args) {
         Fields fields = new Fields();
         System.out.println(fields.isOwnable);
