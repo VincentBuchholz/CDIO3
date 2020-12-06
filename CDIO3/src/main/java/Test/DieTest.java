@@ -15,7 +15,7 @@ class DieTest {
         int three = 0;
         int four = 0;
         int five = 0;
-        int six = 6;
+        int six = 0;
         for (int i = 0; i < 1000; i++)
         {
         Die DieTest = new Die();

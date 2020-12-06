@@ -305,7 +305,7 @@ public class Main {
 
             do {
 
-                roll = controller.getUserButtonPressed(player1.getName() + " tryk for at kaste", "roll");
+                roll = controller.getUserButtonPressed(player1.getName() + " tryk for at kaste med terningen", "roll");
 
                 if (roll.contentEquals("roll")) {
                     die.roll();
