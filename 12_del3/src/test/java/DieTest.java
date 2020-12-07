@@ -1,8 +1,8 @@
 //importere Die klassen fra pakken CDIO3
 import CDIO3.Die;
-//importere junit test klasse så vi kan lave en junit test
+//importere junit test pakke så vi kan lave en junit test
 import org.junit.jupiter.api.Test;
-// Importere en klasse så vi kan bruge assert metoder.
+// Importere en pakke så vi kan bruge assert metoder.
 import static org.junit.jupiter.api.Assertions.*;
 //klassen DieTest
 class DieTest {

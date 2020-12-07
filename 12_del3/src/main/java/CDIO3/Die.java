@@ -1,5 +1,5 @@
 package CDIO3;
-// java.util.Random er en standard API Klasse
+// java.util.Random er en standard API Klasse (pakke)
 import java.util.Random;
 //klassen Die (Terning)
     public class Die {

@@ -1,5 +1,5 @@
 package CDIO3;
-
+//import af pakker
 import CDIO3.Die;
 import CDIO3.Fields;
 import gui_main.GUI;

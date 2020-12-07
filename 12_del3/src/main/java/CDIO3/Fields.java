@@ -7,7 +7,7 @@ import gui_main.GUI;
 import java.awt.*;
 //klasse
 public class Fields{
-    //Array af typen boolean, objekt kaldet isOwnable. Du instantiere objektet af klassen boolean til et array med
+    //Array af typen boolean, objekt kaldet isOwnable. Du instantiere objektet af typen boolean til et array med
     //24 felter. 0 til 23. Et array index starter altid på 0, derfor 0-23 (i alt 24 felter)
      boolean[] isOwnable = new boolean[24]; {
          //hver af array felterne af en værdi (true eller false), før var de alle sammen = null
@@ -47,7 +47,7 @@ public class Fields{
 
     }
 
-    //Array af typen boolean, objekt kaldet isOwned. Du instantiere objektet af klassen boolean til et array med
+    //Array af typen boolean, objekt kaldet isOwned. Du instantiere objektet af typen boolean til et array med
     //24 felter. 0 til 23. Et array index starter altid på 0, derfor 0-23 (i alt 24 felter)
     boolean[] isOwned = new boolean[24]; {
         //giver hvert array felt en værdi, før var de = null
@@ -167,7 +167,7 @@ public class Fields{
         ownedBy[fieldNumber] = playerNumber;
 
     }
-    // getOwnedBy metoden af klassen int med input int fieldNumber som returnere ownedBy[fieldNumber] arrayet
+    // getOwnedBy metoden af typen int med input int fieldNumber som returnere ownedBy[fieldNumber] arrayet
     public int getOwnedBy(int fieldNumber) {
         return ownedBy[fieldNumber];
     }
